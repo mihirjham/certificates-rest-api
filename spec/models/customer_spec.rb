@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 describe Customer do
   subject(:customer) do
     FactoryGirl.build(:customer)
