@@ -1,6 +1,7 @@
 class CreateCustomers < ActiveRecord::Migration
   def change
-    create_table :customers do |t|
+    enable_extension 'uuid-ossp'
+    create_table :customers, id: :uuid do |t|
       t.string :name, null: false
       t.string :email_address, null: false
 

@@ -15,18 +15,21 @@ ActiveRecord::Schema.define(version: 20160912003628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "certificates", force: :cascade do |t|
-    t.integer "customer_id",                null: false
-    t.boolean "active",      default: true, null: false
-    t.string  "private_key",                null: false
-    t.text    "body",                       null: false
+  create_table "certificates", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
+    t.uuid     "customer_id",                null: false
+    t.boolean  "active",      default: true, null: false
+    t.text     "private_key",                null: false
+    t.text     "body",                       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "certificates", ["customer_id"], name: "index_certificates_on_customer_id", using: :btree
   add_index "certificates", ["private_key"], name: "index_certificates_on_private_key", unique: true, using: :btree
 
-  create_table "customers", force: :cascade do |t|
+  create_table "customers", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "name",          null: false
     t.string   "email_address", null: false
     t.datetime "created_at"

@@ -4,6 +4,7 @@ ruby '2.1.2'
 
 gem 'rails', '4.2.4'
 gem 'pg'
+gem 'jbuilder'
 
 group :development, :test do
   gem 'byebug'

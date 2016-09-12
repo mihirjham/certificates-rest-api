@@ -5,7 +5,7 @@ class Api::V1::CustomersController < BaseApiController
     return api_error(:conflict, @customer.errors.full_messages) unless @customer.valid?
 
     if @customer.save
-      render json: @customer, status: :created
+      render :customer, status: :created
     else
       api_error(:bad_request, "Invalid request error")
     end
