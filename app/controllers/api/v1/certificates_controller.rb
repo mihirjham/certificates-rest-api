@@ -24,37 +24,30 @@ class Api::V1::CertificatesController < BaseApiController
   end
 
   def activate
-    @certificate = Certificate.find_by(private_key: certificate_params[:private_key])
-    return api_error(404) unless @certificate
-
-    if @certificate.update(active: true)
-      if params[:notify]
-         @response = RestClient.post(params[:notify][:host], params[:notify][:attributes].to_json, content_type: :json)
-      end
-
-      render :certificate, status: 200
-    else
-      api_error(500)
-    end
+    handle_update(active: true)
   end
 
   def deactivate
-    @certificate = Certificate.find_by(private_key: certificate_params[:private_key])
-    return api_error(404) unless @certificate
-
-    if @certificate.update(active: false)
-      if params[:notify]
-         @response = RestClient.post(params[:notify][:host], params[:notify][:attributes].to_json, content_type: :json)
-      end
-      
-      render :certificate, status: 200
-    else
-      api_error(500)
-    end
+    handle_update(active: false)
   end
 
   private
     def certificate_params
       params.require(:certificate).permit(:private_key)
+    end
+
+    def handle_update(options)
+      @certificate = Certificate.find_by(private_key: certificate_params[:private_key])
+      return api_error(404) unless @certificate
+
+      if @certificate.update(options)
+        if params[:notify]
+           @response = RestClient.post(params[:notify][:host], params[:notify][:attributes].to_json, content_type: :json)
+        end
+
+        render :certificate, status: 200
+      else
+        api_error(500)
+      end
     end
 end
