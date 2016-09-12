@@ -2,7 +2,7 @@ describe Api::V1::CustomersController, type: :controller do
   subject(:customer) { FactoryGirl.build(:customer) }
   context 'create' do
     before do
-      post :create, customer: customer.as_json, format: :json
+      post :create, customer: customer.as_json(only: [:name, :email_address]), format: :json
     end
 
     it "returns a status of 201" do
@@ -10,7 +10,7 @@ describe Api::V1::CustomersController, type: :controller do
     end
 
     it "returns a status of 409 if already exists" do
-      post :create, customer: customer.as_json, format: :json
+      post :create, customer: customer.as_json(only: [:name, :email_address]), format: :json
       expect(response.status).to eq(409)
     end
   end
