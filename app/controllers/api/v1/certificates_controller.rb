@@ -6,9 +6,9 @@ class Api::V1::CertificatesController < BaseApiController
     @certificate = Certificate.new(customer: @customer)
 
     if @certificate.save
-      render :certificate, status: :created
+      render :certificate, status: 201
     else
-      api_error(:bad_request, "Invalid request error")
+      api_error(400, "Invalid request error")
     end
   end
 
@@ -19,7 +19,7 @@ class Api::V1::CertificatesController < BaseApiController
     @certificates = Certificate.get_active_certificates_of_customer(@customer.id)
     @certificates = paginate(@certificates)
     @meta_attributes = meta_attributes(@certificates)
-    
+
     render :active, status: 200
   end
 

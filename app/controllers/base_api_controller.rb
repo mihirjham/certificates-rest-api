@@ -6,10 +6,6 @@ class BaseApiController < ApplicationController
       request.session_options[:skip] = true
     end
 
-    def not_found!
-      api_error(404, errors: 'Not found')
-    end
-
     def api_error(status = 500, errors = [])
       if errors.empty?
         render nothing: true, status: status

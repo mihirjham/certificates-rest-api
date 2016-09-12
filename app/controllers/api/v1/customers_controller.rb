@@ -2,12 +2,12 @@ class Api::V1::CustomersController < BaseApiController
 
   def create
     @customer = Customer.new(customer_params)
-    return api_error(:conflict, @customer.errors.full_messages) unless @customer.valid?
+    return api_error(409, @customer.errors.full_messages) unless @customer.valid?
 
     if @customer.save
-      render :customer, status: :created
+      render :customer, status: 201
     else
-      api_error(:bad_request, "Invalid request error")
+      api_error(400, "Invalid request error")
     end
   end
 
