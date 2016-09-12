@@ -1,6 +1,10 @@
 class BaseApiController < ApplicationController
   before_action :destroy_session!
 
+  rescue_from ActionController::ParameterMissing do |e|
+    api_error(422, e.message)
+  end
+
   protected
     def destroy_session!
       request.session_options[:skip] = true
