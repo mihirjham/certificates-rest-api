@@ -88,6 +88,7 @@ I have used the following libraries
   * Rate Limit - Rate limit is a good way to filter unwanted bots or users that abuse our API. Can use the `redis-throttle` gem, which uses redis to store the limits based on the user's IP.
   * CORS - A specification that "that enables many resources (e.g. fonts, JavaScript, etc.) on a web page to be requested from another domain outside the domain from which the resource originated". We allow access from anywhere, as a proper API. We can set restrictions on which clients are allowed to access the API by specifying the hostnames in origins.
   * Caching most requested items - Using Redis or memcached
+  * Message Queue - Having a message queue that does the POST requests in the CertificatesController #activate and #deactivate methods. Right now, I wait for the response to come back, and this could take really long. Having a message queue like a RabbitMQ will add it to the queue and we will process these requests asynchronously. Ofcourse, we lose the abiity to return the notify status and notify response to the initial request.
 
 ## Testing
 
