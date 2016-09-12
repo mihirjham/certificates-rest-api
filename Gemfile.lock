@@ -62,6 +62,9 @@ GEM
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
     json (1.8.3)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -159,6 +162,7 @@ DEPENDENCIES
   byebug
   factory_girl_rails
   jbuilder
+  kaminari
   pg
   pry-rails
   rails (= 4.2.4)

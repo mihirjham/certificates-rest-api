@@ -7,3 +7,4 @@ json.data do
     json.certificate certificate.body
   end
 end
+json.meta @meta_attributes

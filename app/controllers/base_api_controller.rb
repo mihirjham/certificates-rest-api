@@ -18,4 +18,22 @@ class BaseApiController < ApplicationController
       end
     end
 
+    def paginate(model)
+      model = model.page(params[:page] || 1)
+      if params[:per_page]
+        model = model.per(params[:per_page])
+      end
+
+      model
+    end
+
+    def meta_attributes(model)
+      {
+        current_page: model.current_page,
+        next_page: model.next_page,
+        prev_page: model.prev_page,
+        total_pages: model.total_pages,
+        total_count: model.total_count
+      }
+    end
 end

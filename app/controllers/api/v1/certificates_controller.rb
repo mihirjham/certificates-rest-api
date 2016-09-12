@@ -17,7 +17,9 @@ class Api::V1::CertificatesController < BaseApiController
     return api_error(404) unless @customer
 
     @certificates = Certificate.get_active_certificates_of_customer(@customer.id)
-
+    @certificates = paginate(@certificates)
+    @meta_attributes = meta_attributes(@certificates)
+    
     render :active, status: 200
   end
 
@@ -26,7 +28,7 @@ class Api::V1::CertificatesController < BaseApiController
     return api_error(404) unless @certificate
 
     if @certificate.update(active: true)
-      render :certificate, status: :updated
+      render :certificate, status: 200
     else
       api_error(500)
     end
@@ -37,7 +39,7 @@ class Api::V1::CertificatesController < BaseApiController
     return api_error(404) unless @certificate
 
     if @certificate.update(active: false)
-      render :certificate, status: :updated
+      render :certificate, status: 200
     else
       api_error(500)
     end
