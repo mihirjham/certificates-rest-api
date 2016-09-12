@@ -6,6 +6,7 @@ gem 'rails', '4.2.4'
 gem 'pg'
 gem 'jbuilder'
 gem 'kaminari'
+gem 'rest-client'
 
 group :development, :test do
   gem 'byebug'

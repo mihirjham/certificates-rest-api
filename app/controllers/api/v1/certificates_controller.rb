@@ -28,6 +28,10 @@ class Api::V1::CertificatesController < BaseApiController
     return api_error(404) unless @certificate
 
     if @certificate.update(active: true)
+      if params[:notify]
+         @response = RestClient.post(params[:notify][:host], params[:notify][:attributes].to_json, content_type: :json)
+      end
+
       render :certificate, status: 200
     else
       api_error(500)
@@ -39,6 +43,10 @@ class Api::V1::CertificatesController < BaseApiController
     return api_error(404) unless @certificate
 
     if @certificate.update(active: false)
+      if params[:notify]
+         @response = RestClient.post(params[:notify][:host], params[:notify][:attributes].to_json, content_type: :json)
+      end
+      
       render :certificate, status: 200
     else
       api_error(500)
