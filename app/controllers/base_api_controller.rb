@@ -11,7 +11,11 @@ class BaseApiController < ApplicationController
     end
 
     def api_error(status = 500, errors = [])
-      render json: {error: errors}, status: status
+      if errors.empty?
+        render nothing: true, status: status
+      else
+        render json: {error: errors}, status: status
+      end
     end
 
 end

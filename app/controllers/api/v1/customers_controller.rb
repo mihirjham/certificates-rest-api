@@ -12,6 +12,14 @@ class Api::V1::CustomersController < BaseApiController
   end
 
   def destroy
+    @customer = Customer.find_by(id: params[:id])
+    return api_error(404) unless @customer
+
+    if @customer.destroy
+      head status: 204
+    else
+      api_error(500)
+    end
   end
 
   private
