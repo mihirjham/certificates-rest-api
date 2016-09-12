@@ -8,8 +8,9 @@ class Customer < ActiveRecord::Base
 
   before_save :clean_email_address
 
+  has_many :certificates, dependent: :destroy
+  
   private
-
     def clean_email_address
       self.email_address = self.email_address.strip.downcase
     end

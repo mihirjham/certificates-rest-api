@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160910211856) do
+ActiveRecord::Schema.define(version: 20160912003628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "certificates", force: :cascade do |t|
+    t.integer "customer_id",                null: false
+    t.boolean "active",      default: true, null: false
+    t.string  "private_key",                null: false
+    t.text    "body",                       null: false
+  end
+
+  add_index "certificates", ["customer_id"], name: "index_certificates_on_customer_id", using: :btree
+  add_index "certificates", ["private_key"], name: "index_certificates_on_private_key", unique: true, using: :btree
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",          null: false
