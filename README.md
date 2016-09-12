@@ -19,6 +19,7 @@ To help set up your environment, you can follow the instructions [here](https://
 bundle install
 bundle exec rake db:create
 bundle exec rake db:migrate
+bundle exec rake db:seed
 bundle exec rails s
 ```
 
