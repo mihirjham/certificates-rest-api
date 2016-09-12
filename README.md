@@ -23,6 +23,16 @@ bundle exec rake db:seed
 bundle exec rails s
 ```
 
+## Libraries
+
+I have used the following libraries
+ * Kaminari(Pagination)
+ * RestClient(to make POST requests from the CertificatesController#activate and #deactivate methods)
+ * OpenSSL - OpenSSL::PKey::RSA and OpenSSL::X509::Certificate for the generation of the private key and certificates.
+ * RSpec - Testing framework
+ * FactoryGirl - For setting up Ruby objects for test data
+ * Shoulda Matchers - Testing helper
+
 ## Index
 
 | Endpoint | Description |
