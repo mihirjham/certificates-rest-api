@@ -21,7 +21,12 @@ class BaseApiController < ApplicationController
     def paginate(model)
       model = model.page(params[:page] || 1)
       if params[:per_page]
-        model = model.per(params[:per_page])
+        per_page = params[:per_page].to_i
+        if per_page > 100
+          per_page = 100
+        end
+
+        model = model.per(per_page)
       end
 
       model
